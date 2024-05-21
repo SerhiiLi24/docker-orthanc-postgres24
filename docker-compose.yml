@@ -6,7 +6,7 @@ services:
     container_name: orthanc
     image: orthancteam/orthanc
     volumes:
-      - plugins.json:/etc/orthanc/plugins.json
+      - ./config/plugins.json:/etc/orthanc/plugins.json:ro
     ports:
       - 8042:8042
       - 4242:4242
@@ -18,20 +18,22 @@ services:
       - postgres-server
 
   viewer:
+    hostname: ohif
     container_name: ohif-viewer
     image: ohif/app:latest
     volumes:
-      - viewer-config.js:/usr/share/nginx/html/app-config.js
+      - ./config/viewer-config.js:/usr/share/nginx/html/app-config.js:ro
     ports:
       - "3000:80"
     networks:
       - "orthanc-network"
     
   nginx:
+    hostname: nginx
     container_name: nginx
     image: nginx:latest
     volumes:
-      - nginx.conf:/etc/nginx/nginx.conf
+      - ./config/nginx.conf:/etc/nginx/nginx.conf:ro
     ports:
       - "80:80"
     depends_on:
@@ -40,8 +42,11 @@ services:
       - "orthanc-network"
 
   postgres-server:
+    hostname: postgres
     container_name: postgres
     image: postgres:14
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     restart: unless-stopped
     command: >
       -c max-wal-size=2GB
@@ -53,6 +58,9 @@ services:
       - 5432:5432
     networks:
       - "orthanc-network"
+
+volumes:
+    postgres_data:
 
 networks:
   orthanc-network:
