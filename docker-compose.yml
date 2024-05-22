@@ -2,9 +2,9 @@ version: "3.3"
 
 services:
   orthanc:
-    hostname: orthanc
-    container_name: orthanc
-    image: orthancteam/orthanc
+    hostname: orthanc-ct
+    container_name: orthanc-ct
+    image: orthancteam/orthanc:24.5.1-full
     volumes:
       - ./configs/plugins.json:/etc/orthanc/plugins.json:ro
     ports:
@@ -21,7 +21,7 @@ services:
 #      INDEXER_PLUGIN_ENABLED: "true" # Enable the indexer plugin
       ORTHANC_EXPLORER_2_ENABLED: "true" # Enable the Orthanc Explorer 2
     networks:
-      - orthanc-network
+      - orthanc-network-ct
     depends_on:
       - postgres-server
 
@@ -45,19 +45,47 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - orthanc
+      - orthanc-ct
     networks:
-      - orthanc-network
+      - orthanc-network-ct
 
   postgres-server:
-    hostname: postgres
-    container_name: postgres
+    hostname: postgres-ct
+    container_name: postgres-ct
     image: postgres:14 
     volumes:
       - postgres_data:/var/lib/postgresql/data
     restart: unless-stopped
     command: >
-      -c max-wal-size=2GB
+      - "postgres"
+      - "-c"
+      - "max_connections=50"
+      - "-c"
+      - "shared_buffers=1GB"
+      - "-c"
+      - "effective_cache_size=4GB"
+      - "-c"
+      - "work_mem=16MB"
+      - "-c"
+      - "maintenance_work_mem=512MB"
+      - "-c"
+      - "random_page_cost=1.1"
+      - "-c"
+      - "temp_file_limit=10GB"
+      - "-c"
+      - "log_min_duration_statement=200ms"
+      - "-c"
+      - "idle_in_transaction_session_timeout=10s"
+      - "-c"
+      - "lock_timeout=1s"
+      - "-c"
+      - "statement_timeout=60s"
+      - "-c"
+      - "shared_preload_libraries=pg_stat_statements"
+      - "-c"
+      - "pg_stat_statements.max=10000"
+      - "-c"
+      - "pg_stat_statements.track=all"
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
@@ -65,9 +93,9 @@ services:
     ports:
       - 5432:5432
     networks:
-      - orthanc-network
+      - orthanc-network-ct
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U orthanc -d orthanc"]
+      test: ["CMD-SHELL", "pg_isready -U postgres -d orthanc_db"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -75,7 +103,7 @@ services:
 
   pgadmin:
     container_name: pgadmin_container
-    image: dpage/pgadmin4
+    image: dpage/pgadmin4:latest
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN__DEF_PASSWORD}
@@ -91,15 +119,15 @@ services:
           cpus: '0.5'
           memory: 1G
     networks:
-      - orthanc-network
+      - orthanc-network-ct
 
   postgres_exporter:
     container_name: exporter_container
-    image: prometheuscommunity/postgres-exporter:v0.10.1
+    image: prometheuscommunity/postgres-exporter:latest
     environment:
-      DATA_SOURCE_URI: "postgres:5432/orthanc?sslmode=disable"
-      DATA_SOURCE_USER: "orthanc"
-      DATA_SOURCE_PASS: "orthanc"
+      DATA_SOURCE_URI: "postgres-ct:5432/orthanc_db?sslmode=disable"
+      DATA_SOURCE_USER: ${POSTGRES_USER}
+      DATA_SOURCE_PASS: ${POSTGRES_PASSWORD}
       PG_EXPORTER_EXTEND_QUERY_PATH: "/etc/postgres_exporter/queries.yaml"
     volumes:
       - ./queries.yaml:/etc/postgres_exporter/queries.yaml:ro
@@ -112,7 +140,7 @@ services:
           cpus: '0.2'
           memory: 500M
     networks:
-      - orthanc-network
+      - orthanc-network-ct
 
 
 volumes:
@@ -121,5 +149,5 @@ volumes:
 
 networks:
   orthanc-network:
-    name: orthanc-network
+    name: orthanc-network-ct
     driver: bridge
