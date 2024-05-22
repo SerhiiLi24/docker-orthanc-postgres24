@@ -121,7 +121,7 @@
     "Port" : 5432,
     "Database" : "orthanc",
     "Username" : "orthanc",
-    "Password" : "EFz6nPfM53inL769",
+    "Password" : "orthanc",
     "EnableSsl" : false,
     "MaximumConnectionRetries" : 10,
     "ConnectionRetryInterval" : 5,
