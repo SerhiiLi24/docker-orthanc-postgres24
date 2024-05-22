@@ -97,7 +97,7 @@
   },
   "OrthancExplorer2": {
     "Enable": true,
-    "IsDefaultOrthancUI": true,
+    "IsDefaultOrthancUI": true
   },
   "Dicom": {
     "DicomServer": {
