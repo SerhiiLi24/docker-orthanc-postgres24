@@ -11,7 +11,8 @@ services:
       - 8042:8042
       - 4242:4242
     environment:
-      VERBOSE_ENABLED: true
+      VERBOSE_ENABLED: "true"
+      VERBOSE_STARTUP: "true" 
     networks:
       - "orthanc-network"
     depends_on:
