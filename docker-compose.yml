@@ -61,10 +61,10 @@ services:
       - "orthanc-network"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U orthanc -d orthanc"]
-      interval: 10s
-      timeout: 5s
+      interval: "10s"
+      timeout: "5s"
       retries: 5
-      start_period: 10s
+      start_period: "10s"
 
   pgadmin:
     container_name: pgadmin_container
