@@ -1,5 +1,5 @@
 {
-  "Name": "Orthanc",
+  "Name": "Orthanc CT",
   "StorageCompression": true,
   "StrictAetComparison": false,
   "StoreMD5ForAttachments": true,
@@ -17,7 +17,7 @@
   "HttpDescribeErrors": true,
   "HttpCompressionEnabled": true,
   "DicomServerEnabled": true,
-  "DicomAet": "ORTHANC",
+  "DicomAet": "ORTHANC1",
   "DicomCheckCalledAet": false,
   "DicomPort": 4242,
   "DefaultEncoding": "UTF8",
@@ -33,9 +33,21 @@
   "UnknownSopClassAccepted": true,
   "DicomScpTimeout": 2000,
   "RemoteAccessAllowed": true,
+  "AuthenticationEnabled": true,
+  "RegisteredUsers" : {
+     "orthanc-web-user" : "aPFrKeMM5ssw3SN",
+     "dicom-web-user" : "52uGMM552sc3SNez",
+     "Shulhai Inna" : "aBcDeFgHiJkL",
+     "Chernetskyj Jurij" : "MnOpQrStUvWx",
+     "Daleka Inna" : "YzAbCdEfGhIj",
+     "Kozachuk Olexandr" : "KlMnOpQrStUv",
+     "Babych Oleh" : "WxYzAbCdEfGh",
+     "Melnyk Olha" : "IjKlMnOpQrSt",
+     "Honcharuk Serhii" : "UvWxYzAbCdEf",
+     "Kateryna Kasianova" : "GhIjKlMnOpQr"
+  },
   "SslEnabled": false,
   "SslCertificate": "certificate.pem",
-  "AuthenticationEnabled": false,
   "DicomModalities": {},
   "DicomModalitiesInDatabase": false,
   "DicomAlwaysAllowEcho": true,
@@ -102,7 +114,7 @@
     "ConnectionRetryInterval" : 5,
     "IndexConnectionsCount" : 10,
     "TransactionMode": "Serializable",
-    "EnableVerboseLogs": false
+    "EnableVerboseLogs": true
   },
   "Plugins": [
     "/usr/share/orthanc/plugins"
