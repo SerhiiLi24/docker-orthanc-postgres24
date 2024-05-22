@@ -6,6 +6,8 @@ services:
     container_name: orthanc-ct
     image: orthancteam/orthanc:24.5.1-full
     volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/etc/timezone:/etc/timezone:ro"
       - ./configs/plugins.json:/etc/orthanc/plugins.json:ro
     ports:
       - 8042:8042 # Orthanc web interface
@@ -54,15 +56,17 @@ services:
     container_name: postgres-ct
     image: postgres:14 
     volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/etc/timezone:/etc/timezone:ro"
       - postgres_data:/var/lib/postgresql/data
     restart: unless-stopped
     environment:
-#      POSTGRES_DB: ${POSTGRES_DB}
-#      POSTGRES_USER: ${POSTGRES_USER}
-#      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: orthanc
-      POSTGRES_USER: orthanc
-      POSTGRES_PASSWORD: orthanc
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+#      POSTGRES_DB: orthanc
+#      POSTGRES_USER: orthanc
+#      POSTGRES_PASSWORD: orthanc
     ports:
       - 5432:5432
     networks:
@@ -98,11 +102,13 @@ services:
     container_name: exporter_container
     image: prometheuscommunity/postgres-exporter:latest
     environment:
-      DATA_SOURCE_URI: "postgres-ct:5432/orthanc?sslmode=disable"
+      DATA_SOURCE_URI: "postgres-ct:5432/orthanc_db?sslmode=disable"
       DATA_SOURCE_USER: ${POSTGRES_USER}
       DATA_SOURCE_PASS: ${POSTGRES_PASSWORD}
       PG_EXPORTER_EXTEND_QUERY_PATH: "/etc/postgres_exporter/queries.yaml"
     volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/etc/timezone:/etc/timezone:ro"
       - ./queries.yaml:/etc/postgres_exporter/queries.yaml:ro
     ports:
       - "9187:9187"
