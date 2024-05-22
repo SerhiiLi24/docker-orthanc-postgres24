@@ -34,7 +34,7 @@ services:
     ports:
       - "3000:80"
     networks:
-      - orthanc-network
+      - orthanc-network-ct
     
   nginx:
     hostname: nginx
@@ -106,7 +106,7 @@ services:
     image: dpage/pgadmin4:latest
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN__DEF_PASSWORD}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEF_PASSWORD}
       PGADMIN_CONFIG_SERVER_MODE: "False"
     volumes:
       - pgadmin-data:/var/lib/pgadmin
