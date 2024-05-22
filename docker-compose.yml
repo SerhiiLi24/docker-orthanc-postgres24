@@ -148,6 +148,6 @@ volumes:
     pgadmin-data:
 
 networks:
-  orthanc-network:
+  orthanc-network-ct:
     name: orthanc-network-ct
     driver: bridge
