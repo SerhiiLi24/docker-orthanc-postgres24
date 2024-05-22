@@ -8,14 +8,15 @@ services:
     volumes:
       - ./configs/plugins.json:/etc/orthanc/plugins.json:ro
     ports:
-      - 8042:8042
-      - 4242:4242
+      - 8042:8042 # Orthanc web interface
+      - 4242:4242 # Orthanc REST API
+      - 104:104 # DICOMweb (WADO) cfind/cmove server
     environment:
-      VERBOSE_ENABLED: "true"
-      VERBOSE_STARTUP: "true"
-#      OSIMIS_WEB_VIEWER1_PLUGIN_ENABLED: "true"
-      STONE_WEB_VIEWER_PLUGIN_ENABLED: "true"
-      DICOM_WEB_PLUGIN_ENABLED: "true" 
+      VERBOSE_ENABLED: "true" # Enable verbose logging
+      VERBOSE_STARTUP: "true" # Enable verbose logging during startup
+#      OSIMIS_WEB_VIEWER1_PLUGIN_ENABLED: "true" doesnt work in orthanc 1.9.0
+      STONE_WEB_VIEWER_PLUGIN_ENABLED: "true" # Enable the Web viewer plugin
+      DICOM_WEB_PLUGIN_ENABLED: "true" # Enable the DICOMweb plugin
     networks:
       - "orthanc-network"
     depends_on:
@@ -67,14 +68,14 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-      start_period: 10s
+
 
   pgadmin:
     container_name: pgadmin_container
     image: dpage/pgadmin4
     environment:
-      PGADMIN_DEFAULT_EMAIL: "pagadmin@pagadmin.com"
-      PGADMIN_DEFAULT_PASSWORD: "pagadmin"
+      PGADMIN_DEFAULT_EMAIL: "pgadmin@pgadmin.com"
+      PGADMIN_DEFAULT_PASSWORD: "pgadmin"
       PGADMIN_CONFIG_SERVER_MODE: "False"
     volumes:
       - pgadmin-data:/var/lib/pgadmin
