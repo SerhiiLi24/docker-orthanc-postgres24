@@ -45,7 +45,7 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - orthanc-ct
+      - orthanc
     networks:
       - orthanc-network-ct
 
