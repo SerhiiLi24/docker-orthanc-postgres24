@@ -18,7 +18,7 @@ services:
       STONE_WEB_VIEWER_PLUGIN_ENABLED: "true" # Enable the Web viewer plugin
       DICOM_WEB_PLUGIN_ENABLED: "true" # Enable the DICOMweb plugin
       GDCM_PLUGIN_ENABLED: "true" # Enable the GDCM plugin
-      INDEXER_PLUGIN_ENABLED: "true" # Enable the indexer plugin
+#      INDEXER_PLUGIN_ENABLED: "true" # Enable the indexer plugin
       ORTHANC_EXPLORER_2_ENABLED: "true" # Enable the Orthanc Explorer 2
     networks:
       - orthanc-network

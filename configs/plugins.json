@@ -92,9 +92,6 @@
       "1.2.840.10008.1.2.4.93"
     ]
   },
-  "Indexer": {
-    "Enable": true
-  },
   "OrthancExplorer2": {
     "Enable": true,
     "IsDefaultOrthancUI": true
