@@ -83,6 +83,22 @@
   "OverwriteInstances": true,
   "MediaArchiveSize": 1,
   "StorageAccessOnFind": "Always",
+  "Gdcm": {
+    "Throttling": 4,
+    "RestrictTransferSyntaxes": [
+      "1.2.840.10008.1.2.4.90",
+      "1.2.840.10008.1.2.4.91",
+      "1.2.840.10008.1.2.4.92",
+      "1.2.840.10008.1.2.4.93"
+    ]
+  },
+  "Indexer": {
+    "Enable": true
+  },
+  "OrthancExplorer2": {
+    "Enable": true,
+    "IsDefaultOrthancUI": true,
+  }
   "Dicom": {
     "DicomServer": {
       "Enable": true,
