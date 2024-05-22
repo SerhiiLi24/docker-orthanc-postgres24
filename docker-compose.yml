@@ -14,7 +14,7 @@ services:
     environment:
       VERBOSE_ENABLED: "true" # Enable verbose logging
       VERBOSE_STARTUP: "true" # Enable verbose logging during startup
-      OSIMIS_WEB_VIEWER1_PLUGIN_ENABLED: "true" doesnt work in orthanc 1.9.0
+      OSIMIS_WEB_VIEWER1_PLUGIN_ENABLED: "true" #doesnt work in orthanc 1.9.0
       STONE_WEB_VIEWER_PLUGIN_ENABLED: "true" # Enable the Web viewer plugin
       DICOM_WEB_PLUGIN_ENABLED: "true" # Enable the DICOMweb plugin
       GDCM_PLUGIN_ENABLED: "true" # Enable the GDCM plugin
