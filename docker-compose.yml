@@ -52,9 +52,7 @@ services:
   postgres-server:
     hostname: postgres
     container_name: postgres
-    image: postgres:14
-    labels:
-        io.portainer.accesscontrol.public 
+    image: postgres:14 
     volumes:
       - postgres_data:/var/lib/postgresql/data
     restart: unless-stopped
