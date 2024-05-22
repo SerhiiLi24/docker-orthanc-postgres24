@@ -128,3 +128,6 @@ Visit the links below to know more about support regarding the docker images.
 **PostgreSQL**
  - https://www.postgresql.org/docs/current/bug-reporting.html
  - https://www.postgresql.org/account/login/?next=/account/submitbug/
+ 
+ volumes:
+      - ./postgresql.conf:/var/lib/postgresql/data/postgresql.conf

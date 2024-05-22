@@ -1,6 +1,6 @@
 {
   "Name": "Orthanc",
-  "StorageCompression": false,
+  "StorageCompression": true,
   "StrictAetComparison": false,
   "StoreMD5ForAttachments": true,
   "MaximumStorageSize": 0,
@@ -8,7 +8,7 @@
   "LuaScripts": [],
   "MetricsEnabled": true,
   "OrthancExplorerEnabled": true,
-  "ConcurrentJobs": 2,
+  "ConcurrentJobs": 20,
   "JobsEngineThreadsCount": {
     "ResourceModification": 1
   },
@@ -20,7 +20,7 @@
   "DicomAet": "ORTHANC",
   "DicomCheckCalledAet": false,
   "DicomPort": 4242,
-  "DefaultEncoding": "Latin1",
+  "DefaultEncoding": "UTF8",
   "DeflatedTransferSyntaxAccepted": true,
   "JpegTransferSyntaxAccepted": true,
   "Jpeg2000TransferSyntaxAccepted": true,
@@ -43,7 +43,7 @@
   "DicomCheckModalityHost": false,
   "DicomScuTimeout": 2000,
   "OrthancPeers": {},
-  "OrthancPeersInDatabase": false,
+  "OrthancPeersInDatabase": true,
   "HttpProxy": "",
   "HttpVerbose": true,
   "HttpTimeout": 1000,
