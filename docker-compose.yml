@@ -18,7 +18,7 @@ services:
       STONE_WEB_VIEWER_PLUGIN_ENABLED: "true" # Enable the Web viewer plugin
       DICOM_WEB_PLUGIN_ENABLED: "true" # Enable the DICOMweb plugin
     networks:
-      - "orthanc-network"
+      - orthanc-network
     depends_on:
       - postgres-server
 
@@ -31,7 +31,7 @@ services:
     ports:
       - "3000:80"
     networks:
-      - "orthanc-network"
+      - orthanc-network
     
   nginx:
     hostname: nginx
@@ -44,7 +44,7 @@ services:
     depends_on:
       - orthanc
     networks:
-      - "orthanc-network"
+      - orthanc-network
 
   postgres-server:
     hostname: postgres
@@ -62,7 +62,7 @@ services:
     ports:
       - 5432:5432
     networks:
-      - "orthanc-network"
+      - orthanc-network
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U orthanc -d orthanc"]
       interval: 10s
